@@ -1,8 +1,19 @@
+import java.util.HashSet;
+import java.util.Set;
+
+/**
+ *
+ * @author migue
+ */
+
 public class Acertijo {
 
     // Definir las constantes para los lados
     private static final String INICIO = "Inicio";
     private static final String OTRO_LADO = "Otro lado";
+
+    // Conjunto para almacenar los estados visitados y evitar ciclos
+    private static Set<String> estadosVisitados = new HashSet<>();
 
     // Método principal
     public static void main(String[] args) {
@@ -12,11 +23,22 @@ public class Acertijo {
 
     // Método recursivo para resolver el acertijo
     public static void resolverAcertijo(String pastor, String lobo, String oveja, String lechuga, String paso) {
+        // Crear un estado actual del juego como un string para rastrear
+        String estadoActual = pastor + lobo + oveja + lechuga;
+
         // Caso base: si todos están al otro lado
         if (lobo.equals(OTRO_LADO) && oveja.equals(OTRO_LADO) && lechuga.equals(OTRO_LADO) && pastor.equals(OTRO_LADO)) {
             System.out.println(paso + " ¡Acertijo resuelto!");
             return;
         }
+
+        // Verificar si ya visitamos este estado
+        if (estadosVisitados.contains(estadoActual)) {
+            return;  // Salir si ya estuvimos en este estado
+        }
+
+        // Marcar el estado como visitado
+        estadosVisitados.add(estadoActual);
 
         // Movimiento del pastor con la oveja
         if (pastor.equals(oveja) && esValidoMover(cambiarLado(pastor), lobo, cambiarLado(oveja), lechuga)) {
