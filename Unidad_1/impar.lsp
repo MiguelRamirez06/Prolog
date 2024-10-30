@@ -1,0 +1,6 @@
+(defun verificar-par-impar ()
+  (format t "Introduce un número: ")
+  (let ((numero (read)))
+    (if (evenp numero)
+        (format t "El número ~A es par.~%" numero)
+        (format t "El número ~A es impar.~%" numero))))

@@ -1,0 +1,78 @@
+                      ━━━━━━━━━━━━━━━━━━━━━━━━━━━
+                       TEMA: BIBLIOTECA Y LIBROS
+
+                                 likcos
+                      ━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+
+Table of Contents
+─────────────────
+
+
+
+
+• Actividad: Formalizar los siguiente enunciados y generar los posibles
+  hechos y reglas en Prolog
+
+1. La Biblioteca Nacional tiene el libro "Don Quijote de la Mancha".
+tiene(biblioteca_nacional, 'Don Quijote de la Mancha').
+
+2. Todos los libros en la Biblioteca Nacional están catalogados.
+catalogado(X) :- en_biblioteca(X, biblioteca_nacional).
+
+3. Existen libros que están en más de una biblioteca.
+en_biblioteca_multiple(X) :- en_biblioteca(X, Y), en_biblioteca(X, Z), Y \= Z.
+
+4. Si un libro es raro, entonces no se puede prestar.
+no_prestable(X) :- es_raro(X).
+
+5. La Biblioteca Central tiene más de 10,000 libros.
+cantidad_libros(biblioteca_central, 10000).
+
+6. Todos los autores tienen al menos un libro en una biblioteca.
+tiene_libro(A) :- autor(A), libro(B), en_biblioteca(B, _), escrito_por(B, A).
+
+7. Existe un autor que tiene más de 5 libros publicados.
+autor_prolifico(A) :- autor(A), findall(B, escrito_por(B, A), L), length(L, N), N > 5.
+
+8. No todos los libros de la biblioteca están en buen estado.
+existe_libro_no_buen_estado :- libro(X), not(buen_estado(X)).
+
+9. Si un libro está en buen estado, puede ser prestado.
+prestable(X) :- buen_estado(X).
+
+10. Todos los usuarios registrados pueden tomar prestado un libro.
+puede_prestamo(U) :- usuario_registrado(U).
+
+11. Existen libros que solo se pueden consultar en la biblioteca.
+consulta_unicamente(X) :- en_biblioteca(X, _), not(prestable(X)).
+
+12. Todo libro prestado debe ser devuelto en 15 días.
+plazo_devolucion(X, 15) :- prestado(X, _).
+
+13. Hay un libro que nadie ha pedido en préstamo.
+no_solicitado(X) :- libro(X), not(prestado(X, _)).
+
+14. Si un usuario tiene una multa, no puede pedir un libro prestado.
+no_puede_prestamo(U) :- tiene_multa(U).
+
+15. Todos los libros escritos por un mismo autor están en la misma sección.
+misma_seccion_autor(A) :- autor(A), findall(S, (escrito_por(B, A), en_seccion(B, S)), L), same_seccion(L).
+
+same_seccion([_]).
+same_seccion([H, H|T]) :- same_seccion([H|T]).
+
+16. Existe un libro que tiene más de un ejemplar en la biblioteca.
+multiples_ejemplares(X) :- libro(X), ejemplares(X, N), N > 1.
+
+17. Todo usuario con más de tres préstamos debe devolver uno para pedir otro.
+debe_devolver(U) :- usuario(U), findall(X, prestado(X, U), L), length(L, N), N > 3.
+
+18. Hay una sección de la biblioteca donde todos los libros son de ciencias.
+seccion_ciencias(S) :- seccion(S), forall(en_seccion(L, S), es_de_ciencias(L)).
+
+19. No todos los libros en la biblioteca tienen más de 100 páginas.
+existe_libro_menos_100_paginas :- libro(X), paginas(X, P), P =< 100.
+
+20. Existe un usuario que ha tomado prestados todos los libros de la sección infantil.
+prestamo_total_seccion_infantil(U) :- usuario(U), seccion_infantil(S), forall(en_seccion(L, S), prestado(L, U)).
