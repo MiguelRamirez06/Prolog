@@ -18,6 +18,7 @@ eliza(Input) :-
 	readln(Input1),
 	eliza(Input1), !.
 
+
 template([hola, mi, nombre, es, s(_), '.'], ['Hola', 0, 'Como', estas, tu, '?'], [4]).
 template([buendia, mi, nombre, es, s(_), '.'], ['buen dia', 'Como', estas, tu, 0, '?'], [4]).
 
@@ -30,6 +31,39 @@ template([buendia, _], ['Buendia', 'Como', estas, tu, '?'], []).
 template([yo, s(_), yo, soy, s(_),'.'], [por, que, 0, eres, 1, '?'], [1, 4]).
 template([yo, s(_), tu, '.'], [why, do, you, 0, me ,'?'], [1]).
 template([yo, soy, s(_),'.'], [porque, eres, tu, 0, '?'], [2]).
+
+template([buenas, tardes, _], ['Buenas tardes, Como puedo ayudarte hoy?'], []).
+template([buenas, noches, _], ['Buenas noches, En qué te puedo ayudar?'], []).
+
+template([hola, eliza, _], ['Hola, Que gusto verte! Que te gustaria discutir hoy?'], []).
+template([hey, eliza, _], ['Hey, Que tal? Tienes alguna pregunta o tema en mente?'], []).
+
+template([hola, _], ['Hola, Como te sientes hoy?'], []).
+
+template([que, tal, _], ['Hola, Todo bien por aqui! Y tu, Como estás?'], []).
+template([saludos, _], ['¡Saludos! Que quieres hablar hoy?'], []).
+
+template([hola, como, estas, _], ['Estoy bien, gracias por preguntar. Y tu, como estas'], []).
+template([buenos, dias, _], ['Buenos dias, en que puedo ayudarte hoy'], []).
+
+template([buenas, tardes, _], ['Buenas tardes, en que puedo ayudarte hoy'], []).
+template([hola, eliza, como, estas, _], ['Hola, estoy aqui para ayudarte, que necesitas'], []).
+
+template([hola, quiero, hablar, de, algo, _], ['Claro, dime de que te gustaria hablar'], []).
+template([tengo, un, problema, _], ['Siento oir eso, quieres contarme mas sobre tu problema'], []).
+
+template([quiero, hablar, con, alguien, _], ['Puedes contarme lo que te pasa, estoy aqui para ayudarte'], []).
+
+template([que, onda, _], ['Que onda, Como va todo?'], []).
+template([me, siento, solo, _], ['Lamento que te sientas solo, recuerda que estoy aqui para hablar contigo'], []).
+
+template([estoy, confundido, _], ['Puedo ayudarte a aclarar tus dudas, cuentame mas sobre lo que te confunde'], []).
+template([no, se, que, hacer, _], ['A veces es dificil saber que hacer, hablemos sobre tus opciones'], []).
+
+template([por, que, no, me, entienden, _], ['Quizas si me cuentas mas, podria ayudarte a entender mejor la situacion'], []).
+template([tengo, miedo, _], ['Es normal sentir miedo, quieres hablar de lo que te preocupa'], []).
+
+template([quiero, sentirme, mejor, _], ['Hablar puede ayudar, cuentame que te preocupa y veamos como puedo ayudarte'], []).
 
 % pregunta algo que le gusta a eliza
 template([te, gustan, las, s(_), _], [flagLike], [3]).
