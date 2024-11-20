@@ -65,12 +65,16 @@ template([tengo, miedo, _], ['Es normal sentir miedo, quieres hablar de lo que t
 
 template([quiero, sentirme, mejor, _], ['Hablar puede ayudar, cuentame que te preocupa y veamos como puedo ayudarte'], []).
 
+% pregunta de donde es eliza
+template([de, donde, eres, tu, '?'], [flagWhere], [3]).
+
 % pregunta algo que le gusta a eliza
 template([te, gustan, las, s(_), _], [flagLike], [3]).
 template([te, gustan, los, s(_), _], [flagLike], [3]).
 
-		 % pregunta algo que hace eliza
+% pregunta algo que hace eliza
 template([tu, eres, s(_), _], [flagDo], [2]).
+
 % pregunta algo que es eliza
 template([que, eres, tu, s(_)], [flagIs], [2]).
 template([eres, s(_), '?'], [flagIs], [2]).
@@ -86,6 +90,7 @@ template([please, s(_), _], ['No', i, can, not, help, ',', i, am, just, a, machi
 
 				  
 template(_, ['Please', explain, a, little, more, '.'], []). 
+
 % Lo que le gusta a eliza : flagLike
 elizaLikes(X, R):- likes(X), R = ['Yeah', i, like, X].
 elizaLikes(X, R):- \+likes(X), R = ['Nope', i, do, not, like, X].
@@ -95,8 +100,6 @@ likes(zombies).
 likes(manzanas).
 likes(computadoras).
 like(carros).
-
-
 
 % lo que hace eliza: flagDo
 elizaDoes(X, R):- does(X), R = ['Yes', i, X, and, i, love, it].
@@ -114,6 +117,13 @@ is0(nice).
 is0(fine).
 is0(happy).
 is0(redundant).
+
+% de donde es Eliza: flagWhere
+elizaIsFrom(X, R):- from(X), R = [Yo, soy, de,  X].
+% elizaWhere(X, R):- \+from(X), R = ['No', yo, no, soy, de, X].
+from(puruandiro).
+from(mexico).
+from(michoacan).
 
 match([],[]).
 match([], _):- true.
@@ -143,6 +153,13 @@ replace0([I|_], Input, _, Resp, R):-
 	nth0(0, Resp, X),
 	X == flagDo,
 	elizaDoes(Atom, R).
+
+% From where is Eliza:
+replace0([I|_], Input, _, Resp, R):-
+	nth0(I, Input, Atom),
+	nth0(0, Resp, X),
+	X == flagWhere,
+	elizaIsFrom(Atom, R).
 
 % Eliza is:
 replace0([I|_], Input, _, Resp, R):-
