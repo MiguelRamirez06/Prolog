@@ -10,7 +10,7 @@ hombre(alejandro).
 hombre(rigo).
 
 mujer(maria).
-mujero(angelina).
+mujer(angelina).
 mujer(guadalupe).
 mujer(cristina).
 mujer(rosa).
@@ -25,7 +25,6 @@ padre(nicolas, rosa).
 padre(nicolas, alejandro).
 padre(sergio, fernando).
 padre(sergio, imanol).
-
 
 esposos(miguel, maria).
 esposos(jesus, guadalupe).
@@ -62,12 +61,6 @@ sobrino(X, Y) :- tio(Y, X), hombre(X).
 sobrino(X, Y) :- tia(Y, X), hombre(X).
 sobrina(X, Y) :- tio(Y, X), mujer(X).
 sobrina(X, Y) :- tia(Y, X), mujer(X).
-
-% Nietos
-nieto(X, Y) :- abuelo(Y, X), hombre(X).
-nieto(X, Y) :- abuela(Y, X), hombre(X).
-nieta(X, Y) :- abuelo(Y, X), mujer(X).
-nieta(X, Y) :- abuela(Y, X), mujer(X).
 
 % Hijos
 hijo(X, Y) :- padre(Y, X), hombre(X).

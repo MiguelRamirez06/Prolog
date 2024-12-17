@@ -27,6 +27,17 @@ template([buendia, ',', mi, nombre, es, s(_), '.'], ['Buendia', 'Como', estas, t
 template([hola, _], ['Hola', 'como', estas, tu, '?'], []).
 template([buendia, _], ['Buendia', 'Como', estas, tu, '?'], []).
 
+template([buenas, tardes, _], ['Buenas tardes, Como puedo ayudarte hoy?'], []).
+template([buenas, noches, _], ['Buenas noches, En qué te puedo ayudar?'], []).
+
+template([hola, eliza, _], ['Hola, Que gusto verte! Que te gustaria discutir hoy?'], []).
+template([hey, eliza, _], ['Hey, Que tal? Tienes alguna pregunta o tema en mente?'], []).
+
+template([hola, _], ['Hola, Como te sientes hoy?'], []).
+
+template([que, tal, _], ['Hola, Todo bien por aqui! Y tu, Como estás?'], []).
+template([saludos, _], ['¡Saludos! Que quieres hablar hoy?'], []).
+
 template([yo, s(_), yo, soy, s(_),'.'], [por, que, 0, eres, 1, '?'], [1, 4]).
 template([yo, s(_), tu, '.'], [why, do, you, 0, me ,'?'], [1]).
 template([yo, soy, s(_),'.'], [porque, eres, tu, 0, '?'], [2]).
@@ -35,7 +46,11 @@ template([yo, soy, s(_),'.'], [porque, eres, tu, 0, '?'], [2]).
 template([te, gustan, las, s(_), _], [flagLike], [3]).
 template([te, gustan, los, s(_), _], [flagLike], [3]).
 
-		 % pregunta algo que hace eliza
+
+template([que, te, gusta, s(_), _], [flagLikesNew], [3]).		 
+
+
+% pregunta algo que hace eliza
 template([tu, eres, s(_), _], [flagDo], [2]).
 % pregunta algo que es eliza
 template([que, eres, tu, s(_)], [flagIs], [2]).
@@ -61,6 +76,11 @@ likes(zombies).
 likes(manzanas).
 likes(computadoras).
 like(carros).
+
+
+elizaLikesNew(_, R) :-
+    findall(["A Eliza le gusta ", Gusto], likes(Gusto), Results), 
+    flatten(Results, R).
 
 
 
@@ -96,6 +116,16 @@ match([S|Stim],[_|Input]) :-
 
 replace0([], _, _, Resp, R):- append(Resp, [], R),!.
 
+
+% Eliza likesNew:
+% Reemplazo en la respuesta
+replace0([], _, _, Resp, Resp).
+replace0([I|_], Input, _, Resp, R) :-
+    nth0(I, Input, _), % No es relevante el contenido del token aquí
+    Resp = [flagLikesNew | _],
+    elizaLikesNew(_, R), !.
+
+
 % Eliza likes:
 replace0([I|_], Input, _, Resp, R):-
 	nth0(I, Input, Atom),
@@ -128,3 +158,4 @@ replace0([I|Index], Input, N, Resp, R):-
 	select(N, Resp, Atom, R1),
 	N1 is N + 1,
 	replace0(Index, Input, N1, R1, R),!.
+
