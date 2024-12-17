@@ -1,46 +1,48 @@
-;; Definición de equipos de fútbol y sus características
-(defparameter *equipos* '(
-    (Real-Madrid (
-        (pais España)
-        (fundacion 1902)
-        (estadio "Santiago Bernabéu")
-        (titulos 35)
+;; Definición de dispositivos electrónicos
+
+(defparameter *nodes* '(
+    (telefono (
+        (samsung (s24))
+        (cubot (x70))
+        (huawei (p30))
+        (xiaomi (redmi-note-8))
     ))
-    (Barcelona (
-        (pais España)
-        (fundacion 1899)
-        (estadio "Camp Nou")
-        (titulos 27)
+    (computadora (
+        (asus (rog-strix-g15))
+        (acer (aspire-5))
+        (hp (pavilion-gaming))
+        (lenovo (ideapad-3))
     ))
-    (Manchester-United (
-        (pais Inglaterra)
-        (fundacion 1878)
-        (estadio "Old Trafford")
-        (titulos 20)
+    (smartwatch (
+        (apple (watch-series-6))
+        (samsung (galaxy-watch-3))
+        (huawei (watch-fit))
+        (xiaomi (mi-band-5))
     ))
-    (Bayern-Munich (
-        (pais Alemania)
-        (fundacion 1900)
-        (estadio "Allianz Arena")
-        (titulos 32)
+    (tablet (
+        (apple (ipad-pro))
+        (samsung (galaxy-tab-s7))
+        (huawei (matepad-pro))
+        (xiaomi (mi-pad-5))
     ))
-    (Juventus (
-        (pais Italia)
-        (fundacion 1897)
-        (estadio "Allianz Stadium")
-        (titulos 36)
+    (consola (
+        (sony (playstation-5))
+        (microsoft (xbox-series-x))
+        (nintendo (switch))
     ))
 ))
 
-;; Función para recorrer la lista de equipos
-(defun recorrer-equipos (lista)
+;; Función para recorrer y mostrar los dispositivos y modelos
+(defun recorrer-dispositivos (lista)
   (when lista
-    (let ((equipo (car lista)))
-      (format t "El equipo ~a tiene las siguientes características:~%" (car equipo))
-      (dolist (caracteristica (cadr equipo))
-        (format t " - ~a: ~a~%" (car caracteristica) (cadr caracteristica)))
-      (format t "~%")
-      (recorrer-equipos (cdr lista)))))
+    (let* ((categoria (car lista))        ;; Extraer la categoría (telefono, computadora, etc.)
+           (elementos (cadr lista)))      ;; Extraer los elementos de la categoría
+      (format t "~%Categoría: ~a~%" categoria)
+      (dolist (dispositivo elementos)    ;; Recorrer los dispositivos de la categoría
+        (format t " - Marca: ~a, Modelo: ~a~%"
+                (car dispositivo)        ;; Nombre de la marca
+                (cadr dispositivo)))     ;; Modelo del dispositivo
+      (recorrer-dispositivos (cdr lista))))) ;; Llamada recursiva para el resto de la lista
 
 ;; Ejecutar la función
-(recorrer-equipos *equipos*)
+(recorrer-dispositivos *nodes*)

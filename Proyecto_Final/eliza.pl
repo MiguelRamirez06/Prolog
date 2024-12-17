@@ -52,6 +52,7 @@ template([que, te, gusta, s(_), _], [flagLikesNew], [3]).
 
 % pregunta algo que hace eliza
 template([tu, eres, s(_), _], [flagDo], [2]).
+
 % pregunta algo que es eliza
 template([que, eres, tu, s(_)], [flagIs], [2]).
 template([eres, s(_), '?'], [flagIs], [2]).
@@ -81,7 +82,6 @@ like(carros).
 elizaLikesNew(_, R) :-
     findall(["A Eliza le gusta ", Gusto], likes(Gusto), Results), 
     flatten(Results, R).
-
 
 
 % lo que hace eliza: flagDo
